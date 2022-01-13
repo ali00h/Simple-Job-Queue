@@ -14,9 +14,10 @@ class foo:
 if(__name__ == '__main__'):
 	a = sjq(2)
 	a.start()
-
-	for x in range(10):
-		fooObj = foo(x)
-		a.addJob(fooObj)
-		time.sleep(1)
-
+	try:
+		for x in range(10):
+			fooObj = foo(x)
+			a.addJob(fooObj)
+			time.sleep(1)
+	except KeyboardInterrupt:
+		a.join()

@@ -2,6 +2,7 @@ import threading
 import time
 
 class sjq(threading.Thread):
+	__die = False
 	__secondsWait = 0.5
 	__jobs = []
 	
@@ -10,7 +11,7 @@ class sjq(threading.Thread):
 		threading.Thread.__init__(self)
 
 	def run(self):		
-		while True:
+		while not self.__die:
 			if(len(self.__jobs) > 0):
 				item = self.__jobs.pop(0)
 				item.handle()
@@ -18,3 +19,7 @@ class sjq(threading.Thread):
 	
 	def addJob(self,item):
 		self.__jobs.append(item)	
+		
+	def join(self):
+		self.__die = True
+		super().join()
