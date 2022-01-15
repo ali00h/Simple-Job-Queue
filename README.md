@@ -20,9 +20,11 @@ You can create queue by creating an instance of `sjq` class. You can define seco
 ```python
 a = sjq(2)
 a.start()
-
-for x in range(10):
-	fooObj = foo(x)
-	a.addJob(fooObj)
-	time.sleep(1)		
+try:
+	for x in range(10):
+		fooObj = foo(x)
+		a.addJob(fooObj)
+		time.sleep(1)
+except KeyboardInterrupt:
+	a.join()	
 ```
